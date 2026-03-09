@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #101114;
+  margin: 0;
+  padding: 0;
+}
+
+.mask {
+  background: linear-gradient(
+    270deg,
+    #10111433,
+    #10111400 25.19%,
+    #10111400 49.8%,
+    #10111466 74.68%,
+    #101114
+  );
+  height: 100%;
+  inset-inline-end: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.mask2 {
+  background: linear-gradient(0deg, #101114, #10111400 25.45%, #10111400 50%, #10111433 75.3%, #101114cc);
+    z-index: 9;
+    height: 100%;
+    inset-inline-end: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
