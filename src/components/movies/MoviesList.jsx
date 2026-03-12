@@ -9,7 +9,7 @@ const MoviesList = () => {
     const loadMovies = async () => {
         try {
             const data = await fetchMovies();
-            setMovies(data);
+            setMovies(data.results);
         } catch (error) {
             console.error('Error fetching movies:', error);
         }
