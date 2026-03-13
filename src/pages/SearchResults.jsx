@@ -53,7 +53,7 @@ const SearchResults = () => {
   };
 
   return (
-    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-24 min-h-screen">
+    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-36 md:pt-28 min-h-screen">
       <button
         onClick={handleBack}
         className="mb-8 flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group w-fit"
@@ -65,7 +65,7 @@ const SearchResults = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
               Search Results
             </h1>
           </div>

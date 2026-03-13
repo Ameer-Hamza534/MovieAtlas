@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchUpcomingMovies } from '../../services/api';
+import { fetchAnimatedMovies } from '../../services/api';
 import MovieCard from './MovieCard';
 import { SkeletonGrid } from '../Skeleton';
 import { ChevronRight } from 'lucide-react';
 
-const UpcomingSection = ({ limit = 10 }) => {
+const AnimatedSection = ({ limit = 10 }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,10 +13,10 @@ const UpcomingSection = ({ limit = 10 }) => {
     const loadMovies = async () => {
       setLoading(true);
       try {
-        const data = await fetchUpcomingMovies();
+        const data = await fetchAnimatedMovies();
         setMovies(data.results.slice(0, limit));
       } catch (error) {
-        console.error('Error fetching upcoming movies:', error);
+        console.error('Error fetching animated movies:', error);
       } finally {
         setLoading(false);
       }
@@ -28,10 +28,10 @@ const UpcomingSection = ({ limit = 10 }) => {
     <div className="mb-12 relative">
       <div className="flex justify-between items-end mb-6">
         <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          <span className="text-blue-500">🚀</span> Upcoming
+          <span className="text-purple-500">✨</span> Animated Movies
         </h2>
         <Link
-          to="/movies?category=upcoming"
+          to="/animated"
           className="text-zinc-400 text-sm font-medium flex items-center gap-1 hover:text-white transition-colors group"
         >
           Explore All
@@ -45,7 +45,7 @@ const UpcomingSection = ({ limit = 10 }) => {
         <div className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory hide-scroll-bar [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {movies.map(movie => (
             <div key={movie.id} className="w-[calc(50%-12px)] sm:w-[calc(33.333%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(20%-19.2px)] xl:w-[calc(16.666%-20px)] snap-start shrink-0">
-              <MovieCard movie={movie} upcoming={true} />
+              <MovieCard movie={movie} />
             </div>
           ))}
         </div>
@@ -54,4 +54,4 @@ const UpcomingSection = ({ limit = 10 }) => {
   );
 };
 
-export default UpcomingSection;
+export default AnimatedSection;

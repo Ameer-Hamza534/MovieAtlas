@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { searchMulti, fetchTrendingMovies } from '../services/api';
 
-const SearchBar = () => {
+const SearchBar = ({ isMobile }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [query, setQuery] = useState('');
@@ -121,13 +121,13 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="relative w-full max-w-md" ref={dropdownRef}>
-      <div className="p-0 flex gap-3 items-center bg-[#fff3] rounded-md px-4 py-2">
-        <Search className="text-gray-400" size={20} />
+    <div className={`relative ${isMobile ? 'w-full' : 'w-full max-w-md'}`} ref={dropdownRef}>
+      <div className="p-0 flex gap-4 items-center bg-zinc-800/60 hover:bg-zinc-800/80 transition-colors border border-white/5 rounded-full px-5 py-2.5">
+        <Search className="text-zinc-400" size={20} />
         <input
-          className="w-full bg-transparent border-none focus:outline-none text-white placeholder-gray-400"
+          className="w-full bg-transparent border-none focus:outline-none text-white placeholder-zinc-500 font-medium"
           type="text"
-          placeholder="Search movies/TV shows..."
+          placeholder="Search movies/ TV Shows"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
@@ -149,7 +149,7 @@ const SearchBar = () => {
               setSearchResults([]);
               setShowDropdown(false);
             }}
-            className="text-gray-400 hover:text-white transition"
+            className="text-zinc-400 hover:text-white transition p-1 hover:bg-white/10 rounded-full"
           >
             <X size={18} />
           </button>

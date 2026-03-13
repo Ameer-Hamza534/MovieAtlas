@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../redux/slices/favoritesSlice';
 import { Heart } from 'lucide-react';
+import { getPosterImage } from '../../utils/imageUtils';
 
 const TvShowCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -11,16 +12,13 @@ const TvShowCard = ({ movie }) => {
   
   const isFavorite = favorites.some((fav) => fav.id === movie.id);
 
-  const poster = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : 'https://via.placeholder.com/300x450?text=No+Image';
+  const poster = getPosterImage(movie.poster_path);
 
   const handleToggleFavorite = (e) => {
     e.stopPropagation();
     if (isFavorite) {
       dispatch(removeFavorite({ id: movie.id }));
     } else {
-      // Saving the type as tv to navigate properly from favorites page later
       dispatch(addFavorite({ ...movie, media_type: 'tv' }));
     }
   };
@@ -29,18 +27,24 @@ const TvShowCard = ({ movie }) => {
     navigate(`/detail/tv/${movie.id}`);
   };
 
-  // Some endpoints return 'first_air_date' instead of 'release_date' for TV shows
-  const releaseYear = movie.first_air_date?.slice(0, 4) || movie.release_date?.slice(0, 4) || 'N/A';
+  const title = movie.name || movie.title || 'Untitled';
+
+  const releaseYear = (movie.first_air_date || movie.release_date)?.slice(0, 4) || 'N/A';
 
   return (
     <div
       onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${title}`}
+      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
       className="group cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative bg-zinc-900 border border-zinc-800"
     >
       <div className="absolute top-2 left-2 z-10">
         <button 
           onClick={handleToggleFavorite}
-          className="p-1.5 bg-black/50 backdrop-blur-md rounded-full hover:bg-black/70 transition-colors"
+          aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
+          className="p-1.5 bg-black/50 backdrop-blur-md rounded-full hover:bg-black/70 transition-colors focus:ring-2 focus:ring-red-500 outline-none"
         >
           <Heart size={16} className={`${isFavorite ? 'fill-red-500 text-red-500' : 'text-white'}`} />
         </button>
@@ -53,7 +57,7 @@ const TvShowCard = ({ movie }) => {
       <div className="relative overflow-hidden aspect-[2/3] w-full">
         <img
           src={poster}
-          alt={movie.name || movie.title}
+          alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
         />
@@ -62,7 +66,7 @@ const TvShowCard = ({ movie }) => {
       
       <div className="p-3 absolute bottom-0 w-full z-10 bg-zinc-900/40 backdrop-blur-sm border-t border-zinc-800/50 group-hover:bg-zinc-900/80 transition-colors duration-300">
         <h2 className="text-sm font-semibold text-white/90 truncate group-hover:text-white">
-          {movie.name || movie.title}
+          {title}
         </h2>
       </div>
     </div>

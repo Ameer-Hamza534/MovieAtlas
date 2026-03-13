@@ -94,7 +94,7 @@ const Movies = () => {
 
       <main className="container mx-auto p-4 md:px-8 lg:px-12 mb-20 relative z-10">
         <div className="flex items-end justify-between mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{getCategoryTitle(category)}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">{getCategoryTitle(category)}</h1>
         </div>
 
         {loading && currentPage === 1 ? (

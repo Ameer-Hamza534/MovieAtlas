@@ -8,10 +8,10 @@ const Favorites = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
 
   return (
-    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-24 min-h-screen">
+    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-36 md:pt-28 min-h-screen">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">Your Favorites</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Your Favorites</h1>
           <p className="text-zinc-400">Movies and TV Shows you've liked.</p>
         </div>
         <span className="text-sm font-medium text-white/50 bg-white/5 py-1 px-3 rounded-full">

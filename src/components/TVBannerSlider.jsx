@@ -61,33 +61,33 @@ const TVBannerSlider = () => {
               />
               
               {/* Gradients */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent"></div>
-              <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-zinc-950/80 to-transparent"></div>
+              <div className="absolute inset-y-0 left-0 w-full md:w-2/3 lg:w-1/2 bg-gradient-to-r from-zinc-950 to-transparent"></div>
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 w-full md:w-2/3 lg:w-1/2 p-6 md:p-12 lg:p-16 z-10 text-white flex flex-col gap-4 pb-24 md:pb-32">
+              <div className="absolute bottom-0 left-0 w-full md:w-2/3 lg:w-1/2 p-6 md:p-12 lg:p-16 z-10 text-white flex flex-col gap-3 md:gap-4 pb-16 md:pb-32 pt-28 md:pt-0">
                 <div className="flex items-center gap-3">
-                  <span className="bg-purple-600 font-bold px-2 py-0.5 rounded text-xs tracking-wider uppercase">Hot</span>
-                  <span className="flex items-center gap-1.5 text-yellow-500 font-semibold bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full text-sm border border-white/10">
+                  <span className="bg-purple-600 font-bold px-2 py-0.5 rounded text-[10px] md:text-xs tracking-wider uppercase">Hot</span>
+                  <span className="flex items-center gap-1.5 text-yellow-500 font-semibold bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full text-xs md:text-sm border border-white/10">
                     <Star size={14} className="fill-yellow-500" />
-                    {tvShow.vote_average?.toFixed(1)}
+                    {tvShow.vote_average?.toFixed(1) || '0.0'}
                   </span>
                 </div>
                 
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight drop-shadow-lg leading-tight">
+                <h1 className="text-lg md:text-5xl lg:text-7xl font-black tracking-tight drop-shadow-lg leading-tight line-clamp-2">
                   {tvShow.title || tvShow.name}
                 </h1>
                 
                 {tvShow.overview && (
-                  <p className="text-zinc-300 text-sm md:text-base leading-relaxed line-clamp-3 max-w-xl md:mt-2">
+                  <p className="text-zinc-300 text-xs md:text-base leading-relaxed line-clamp-2 md:line-clamp-3 max-w-xl md:mt-2 opacity-90">
                     {tvShow.overview}
                   </p>
                 )}
                 
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-4 text-zinc-400 font-medium text-sm">
-                  <span className="uppercase tracking-wider">{tvShow.original_language}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2 md:mt-4 text-zinc-400 font-medium text-[10px] md:text-sm uppercase tracking-widest">
+                  <span>{tvShow.original_language || 'EN'}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 hidden sm:block"></span>
                   <span>{tvShow.first_air_date?.slice(0, 4) || 'N/A'}</span>
                 </div>
               </div>

@@ -71,7 +71,7 @@ const GenreList = () => {
   }, [genreId, type, currentPage]);
 
   return (
-    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-24 min-h-screen relative z-10">
+    <main className="container mx-auto p-4 md:px-8 lg:px-12 pt-36 md:pt-28 min-h-screen relative z-10">
       <button
         onClick={() => navigate(-1)}
         className="mb-8 flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group w-fit"
@@ -81,7 +81,7 @@ const GenreList = () => {
       </button>
 
       <div className="flex items-end justify-between mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
           {genreName && `${genreName} ${type === 'movie' ? 'Movies' : 'TV Shows'}`}
         </h1>
       </div>

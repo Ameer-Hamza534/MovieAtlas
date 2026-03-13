@@ -27,7 +27,7 @@ const MoviesSection = ({ limit = 10 }) => {
   return (
     <div className="mb-12 relative">
       <div className="flex justify-between items-end mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-2">
+        <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
           <span className="text-red-500">🔥</span> Popular Movies
         </h2>
         <Link

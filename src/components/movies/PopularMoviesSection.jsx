@@ -27,7 +27,7 @@ const PopularMoviesSection = ({ limit = 10 }) => {
   return (
     <div className="mb-12">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-white">🔥 Popular Movies</h2>
+        <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">🔥 Popular Movies</h2>
         <Link
           to="/movies?category=popular"
           className="text-gray-300 p-2 flex items-center gap-1 hover:text-white transition-colors"
