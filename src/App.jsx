@@ -9,6 +9,7 @@ import TVShows from './pages/TVShows';
 import Detail from './pages/Detail';
 import GenreList from './pages/GenreList';
 import SearchResults from './pages/SearchResults';
+import Favorites from './pages/Favorites';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/detail/:type/:id" element={<Detail onHeaderVisibilityChange={setHeaderVisible} />} />
           <Route path="/genres/:type/:genreId" element={<GenreList />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
         <Footer />
       </div>

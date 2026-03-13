@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { fetchPopularMovies } from '../../services/api';
 import MovieCard from './MovieCard';
 import { SkeletonGrid } from '../Skeleton';
+import { ChevronRight  } from 'lucide-react';
 
 const PopularMoviesSection = ({ limit = 10 }) => {
   const [movies, setMovies] = useState([]);
@@ -29,10 +30,12 @@ const PopularMoviesSection = ({ limit = 10 }) => {
         <h2 className="text-2xl font-bold text-white">🔥 Popular Movies</h2>
         <Link
           to="/movies?category=popular"
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+          className="text-gray-300 p-2 flex items-center gap-1 hover:text-white transition-colors"
         >
-          Show More
+          More
+          <ChevronRight size={20} />  
         </Link>
+        
       </div>
       {loading ? (
         <SkeletonGrid count={limit} />

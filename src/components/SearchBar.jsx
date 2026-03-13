@@ -223,7 +223,7 @@ const SearchBar = () => {
                       onClick={() => handleResultClick(item)}
                       className="flex items-center gap-3 w-full px-3 py-2 hover:bg-gray-700 rounded transition text-left"
                     >
-                      <Search size={16} className="text-gray-400 flex-shrink-0" />
+                      <Search size={16} className="text-gray-400 shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm truncate">{item.title || item.name}</p>
                         <p className="text-gray-400 text-xs">

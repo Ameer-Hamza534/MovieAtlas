@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import BannerSlider from '../components/BannerSlider';
-import Pagination from '../components/Pagination';
 import {
   fetchMovies,
   fetchNowPlayingMovies,
@@ -12,14 +11,38 @@ import {
 import MovieCard from '../components/movies/MovieCard';
 import { SkeletonGrid } from '../components/Skeleton';
 
+
 const Movies = () => {
   const [searchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+  
+  const observer = useRef();
+  
   const category = searchParams.get('category') || 'popular';
+
+  // Intersection Observer callback
+  const lastMovieElementRef = useCallback(node => {
+    if (isFetching || loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && currentPage < totalPages) {
+        setCurrentPage(prevPage => prevPage + 1);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [isFetching, loading, currentPage, totalPages]);
+
+  // Reset when category changes
+  useEffect(() => {
+    setMovies([]);
+    setCurrentPage(1);
+    setTotalPages(1);
+    setLoading(true);
+  }, [category]);
 
   const getCategoryTitle = (cat) => {
     switch (cat) {
@@ -43,50 +66,60 @@ const Movies = () => {
 
   useEffect(() => {
     const loadMovies = async () => {
-      setLoading(true);
+      setIsFetching(true);
       try {
         const data = await getCategoryApi(category, currentPage);
-        setMovies(data.results);
+        setMovies(prev => {
+          // ensure no duplicates by id when appending
+          const newMoviesMap = new Map((currentPage === 1 ? data.results : [...prev, ...data.results]).map(m => [m.id, m]));
+          return Array.from(newMoviesMap.values());
+        });
         setTotalPages(data.total_pages);
       } catch (error) {
         console.error('Error fetching movies:', error);
       } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
     loadMovies();
   }, [category, currentPage]);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    window.scrollTo(0, 0);
-  };
-
   return (
     <>
       {/* Movies Banner */}
-      <section className="mb-8">
+      <section className="mb-12">
         <BannerSlider />
       </section>
 
-      <main className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold text-white mb-6">{getCategoryTitle(category)}</h1>
+      <main className="container mx-auto p-4 md:px-8 lg:px-12 mb-20 relative z-10">
+        <div className="flex items-end justify-between mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{getCategoryTitle(category)}</h1>
+        </div>
 
-        {loading ? (
-          <SkeletonGrid count={20} />
+        {loading && currentPage === 1 ? (
+          <SkeletonGrid count={12} />
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8">
-              {movies.map(movie => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 mb-12">
+              {movies.map((movie, index) => {
+                if (movies.length === index + 1) {
+                  return (
+                    <div ref={lastMovieElementRef} key={movie.id}>
+                      <MovieCard movie={movie} />
+                    </div>
+                  );
+                } else {
+                  return <MovieCard key={movie.id} movie={movie} />;
+                }
+              })}
             </div>
 
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
+            {isFetching && currentPage > 1 && (
+              <div className="my-8">
+                <SkeletonGrid count={6} />
+              </div>
+            )}
           </>
         )}
       </main>

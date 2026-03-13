@@ -34,9 +34,15 @@ export const SkeletonCard = ({ className = '' }) => (
 );
 
 export const SkeletonGrid = ({ count = 5, className = '' }) => (
-  <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ${className}`}>
+  // If count is exactly 5, assume it's a row layout, else it's a grid (like 20 items)
+  <div className={count <= 6 
+      ? `flex gap-6 overflow-hidden pb-6 pt-2 ${className}`
+      : `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ${className}`
+  }>
     {Array.from({ length: count }).map((_, index) => (
-      <SkeletonCard key={index} />
+      <div key={index} className={count <= 6 ? "min-w-[160px] md:min-w-[200px] lg:min-w-[220px] shrink-0" : ""}>
+        <SkeletonCard />
+      </div>
     ))}
   </div>
 );

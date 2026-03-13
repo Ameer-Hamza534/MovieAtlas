@@ -45,34 +45,52 @@ const BannerSlider = () => {
   };
 
   return (
-    <div className="relative w-full mb-8">
-      <Slider {...settings} className="h-120">
+    <div className="relative w-full mb-0 h-[70vh] md:h-[85vh] lg:h-[90vh]">
+      <Slider {...settings} className="h-full w-full [&_.slick-list]:h-full [&_.slick-track]:h-full">
         {movies.map((movie) => {
-          const poster = movie.poster_path
-            ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
-            : "https://via.placeholder.com/800x450?text=No+Image";
+          const poster = movie.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+            : movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "https://via.placeholder.com/800x450?text=No+Image";
 
           return (
-            <div key={movie.id} className="relative h-120">
+            <div key={movie.id} className="relative h-[70vh] md:h-[85vh] lg:h-[90vh] w-full group focus:outline-none">
               <img
                 src={poster}
                 alt={movie.title || movie.name}
-                className="w-full h-120 object-cover"
+                className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-opacity-50 z-10 text-white whitespace-nowrap flex flex-col gap-3 ">
-                <h1 className="text-5xl font-bold">
+              
+              {/* Gradients */}
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent"></div>
+              <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-zinc-950/80 to-transparent"></div>
+
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 w-full md:w-2/3 lg:w-1/2 p-6 md:p-12 lg:p-16 z-10 text-white flex flex-col gap-4 pb-24 md:pb-32">
+                <div className="flex items-center gap-3">
+                  <span className="bg-red-600 font-bold px-2 py-0.5 rounded text-xs tracking-wider uppercase">Hot</span>
+                  <span className="flex items-center gap-1.5 text-yellow-500 font-semibold bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full text-sm border border-white/10">
+                    <Star size={14} className="fill-yellow-500" />
+                    {movie.vote_average?.toFixed(1)}
+                  </span>
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight drop-shadow-lg leading-tight">
                   {movie.title || movie.name}
                 </h1>
-                <div className="flex gap-2.5">
-                  <span className="uppercase">{movie.original_language}</span>
-                  <span className="border-l"></span>
-                  <span>{movie.release_date.slice(0, 4)}</span>
-                  <span className="border-l"></span>
-                  <span className="flex items-center gap-1.5"><Star size={18} />{movie.vote_average.toFixed(1)}</span>
+                
+                {movie.overview && (
+                  <p className="text-zinc-300 text-sm md:text-base leading-relaxed line-clamp-3 max-w-xl md:mt-2">
+                    {movie.overview}
+                  </p>
+                )}
+                
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-4 text-zinc-400 font-medium text-sm">
+                  <span className="uppercase tracking-wider">{movie.original_language}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+                  <span>{movie.release_date?.slice(0, 4)}</span>
                 </div>
               </div>
-              <div className="mask"></div>
-              <div className="mask2"></div>
             </div>
           );
         })}

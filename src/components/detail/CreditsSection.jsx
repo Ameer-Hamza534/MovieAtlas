@@ -62,25 +62,23 @@ const CreditsSection = ({ id, type }) => {
   };
 
   return (
-    <section className="mt-12 pb-12">
-      <h2 className="text-2xl font-bold mb-6">Credits</h2>
-
+    <section>
       <div className="flex flex-col gap-12">
         {/* Cast */}
         {cast.length > 0 && (
           <div>
-            <h3 className="text-xl font-semibold mb-6">Cast</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <h3 className="text-2xl font-bold mb-6 text-white tracking-tight">Top Cast</h3>
+            <div className="flex gap-4 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory hide-scroll-bar [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {cast.map(actor => (
-                <div key={actor.id} className="flex gap-4">
+                <div key={actor.id} className="flex flex-col gap-3 min-w-[120px] sm:min-w-[140px] shrink-0 snap-start bg-zinc-900/50 p-3 rounded-2xl border border-zinc-800/50 hover:bg-zinc-800 transition-colors">
                   <img
                     src={getProfileImage(actor.profile_path)}
                     alt={actor.name}
-                    className="w-16 h-24 object-cover rounded-lg flex-shrink-0"
+                    className="w-full aspect-[2/3] object-cover rounded-xl shadow-md"
                   />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white truncate">{actor.name}</p>
-                    <p className="text-sm text-gray-400 truncate">
+                  <div className="flex-1 min-w-0 text-center">
+                    <p className="font-semibold text-white text-sm truncate">{actor.name}</p>
+                    <p className="text-xs text-zinc-400 mt-0.5 line-clamp-2 leading-snug">
                       {actor.character || 'Unknown Role'}
                     </p>
                   </div>
@@ -93,23 +91,20 @@ const CreditsSection = ({ id, type }) => {
         {/* Crew */}
         {crew.length > 0 && (
           <div>
-            <h3 className="text-xl font-semibold mb-6">Crew</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <h3 className="text-2xl font-bold mb-6 text-white tracking-tight">Featured Crew</h3>
+            <div className="flex gap-4 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory hide-scroll-bar [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {crew.map(person => (
-                <div key={`${person.id}-${person.job}`} className="flex gap-4">
+                <div key={`${person.id}-${person.job}`} className="flex flex-col gap-3 min-w-[120px] sm:min-w-[140px] shrink-0 snap-start bg-zinc-900/50 p-3 rounded-2xl border border-zinc-800/50 hover:bg-zinc-800 transition-colors">
                   <img
                     src={getProfileImage(person.profile_path)}
                     alt={person.name}
-                    className="w-16 h-24 object-cover rounded-lg flex-shrink-0"
+                    className="w-full aspect-[2/3] object-cover rounded-xl shadow-md"
                   />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white truncate">{person.name}</p>
-                    <p className="text-sm text-gray-400 truncate">
+                  <div className="flex-1 min-w-0 text-center">
+                    <p className="font-semibold text-white text-sm truncate">{person.name}</p>
+                    <p className="text-xs text-zinc-400 mt-0.5 truncate">
                       {person.job}
                     </p>
-                    {person.department && (
-                      <p className="text-xs text-gray-500">{person.department}</p>
-                    )}
                   </div>
                 </div>
               ))}

@@ -18,6 +18,15 @@ const baseInstance = axios.create({
     },
 });
 
+// Add a response interceptor for global error handling
+const handleError = (error) => {
+    console.error('API Error:', error.response?.data?.status_message || error.message);
+    return Promise.reject(error);
+};
+
+instance.interceptors.response.use((response) => response, handleError);
+baseInstance.interceptors.response.use((response) => response, handleError);
+
 export async function fetchMovies(page = 1) {
     const response = await instance.get('/movie', {
         params: {

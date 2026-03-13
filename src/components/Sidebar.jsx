@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { X, House, Clapperboard, Tv, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, House, Clapperboard, Tv, ChevronDown, ChevronUp, Heart } from 'lucide-react';
 import { fetchMovieGenres, fetchTvGenres } from '../services/api';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -91,6 +91,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <Link to="/tv-shows" className="block py-2 px-4 hover:bg-gray-700 rounded" onClick={onClose}>
                   <Tv className="inline mr-2" size={18} />
                   All TV Shows
+                </Link>
+              </li>
+              <li>
+                <Link to="/favorites" className="block py-2 px-4 hover:bg-gray-700 text-red-400 hover:text-red-300 rounded" onClick={onClose}>
+                  <Heart className="inline mr-2" size={18} />
+                  Favorites
                 </Link>
               </li>
             </ul>
