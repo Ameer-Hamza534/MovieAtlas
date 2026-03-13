@@ -10,6 +10,10 @@ import Detail from './pages/Detail';
 import GenreList from './pages/GenreList';
 import SearchResults from './pages/SearchResults';
 import Favorites from './pages/Favorites';
+import HindiDubMovies from './pages/HindiDubMovies';
+import AnimatedMovies from './pages/AnimatedMovies';
+import CategoryResults from './pages/CategoryResults';
+import BottomNav from './components/BottomNav';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,7 +25,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-gray-900 pb-16 md:pb-0">
         {headerVisible && <Header onMenuClick={toggleSidebar} />}
         <Sidebar isOpen={sidebarOpen} onClose={toggleSidebar} />
         <Routes>
@@ -32,8 +36,12 @@ const App = () => {
           <Route path="/genres/:type/:genreId" element={<GenreList />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/hindi-dub" element={<HindiDubMovies />} />
+          <Route path="/animated" element={<AnimatedMovies />} />
+          <Route path="/category/:slug" element={<CategoryResults />} />
         </Routes>
         <Footer />
+        <BottomNav />
       </div>
     </Router>
   );

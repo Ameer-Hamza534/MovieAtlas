@@ -192,3 +192,39 @@ export async function fetchUpcomingMovies(page = 1) {
     });
     return response.data;
 }
+
+export async function fetchHindiDubMovies(page = 1) {
+    const response = await instance.get('/movie', {
+        params: {
+            with_original_language: 'hi',
+            sort_by: 'popularity.desc',
+            page,
+        },
+    });
+    return response.data;
+}
+
+export async function fetchAnimatedMovies(page = 1) {
+    const response = await instance.get('/movie', {
+        params: {
+            with_genres: 16,
+            sort_by: 'popularity.desc',
+            page,
+        },
+    });
+    return response.data;
+}
+
+export async function fetchCategoryContent(lang, type = 'movie', page = 1, genre = null) {
+    const endpoint = type === 'tv' ? '/tv' : '/movie';
+    const params = {
+        with_original_language: lang,
+        sort_by: 'popularity.desc',
+        page,
+    };
+    if (genre) {
+        params.with_genres = genre;
+    }
+    const response = await instance.get(endpoint, { params });
+    return response.data;
+}

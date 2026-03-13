@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import logo from '../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { X, House, Clapperboard, Tv, ChevronDown, ChevronUp, Heart } from 'lucide-react';
+import { X, House, Clapperboard, Tv, ChevronDown, ChevronUp, Heart, Languages, Sparkles } from 'lucide-react';
 import { fetchMovieGenres, fetchTvGenres } from '../services/api';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -69,7 +70,12 @@ const Sidebar = ({ isOpen, onClose }) => {
           >
             <X size={24} />
           </button>
-          <h2 className="text-xl font-bold mb-4">Menu</h2>
+          <Link to="/" className="flex items-center gap-2 mb-6" onClick={onClose}>
+            <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
+            <span className="text-xl font-black tracking-tighter uppercase italic bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+              MovieAtlas
+            </span>
+          </Link>
 
           {/* Scrollable content area */}
           <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
@@ -91,6 +97,18 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <Link to="/tv-shows" className="block py-2 px-4 hover:bg-gray-700 rounded" onClick={onClose}>
                   <Tv className="inline mr-2" size={18} />
                   All TV Shows
+                </Link>
+              </li>
+              <li>
+                <Link to="/hindi-dub" className="block py-2 px-4 hover:bg-gray-700 rounded text-orange-400 hover:text-orange-300" onClick={onClose}>
+                  <Languages className="inline mr-2" size={18} />
+                  Hindi DUB
+                </Link>
+              </li>
+              <li>
+                <Link to="/animated" className="block py-2 px-4 hover:bg-gray-700 rounded text-purple-400 hover:text-purple-300" onClick={onClose}>
+                  <Sparkles className="inline mr-2" size={18} />
+                  Animated
                 </Link>
               </li>
               <li>

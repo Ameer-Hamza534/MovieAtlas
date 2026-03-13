@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import SearchBar from "./SearchBar";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.png";
 import { Menu, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
@@ -31,13 +31,13 @@ const Header = ({ onMenuClick }) => {
           <div className="flex items-center gap-4">
             <button 
               onClick={onMenuClick} 
-              className="text-white hover:text-red-500 transition-colors cursor-pointer p-2 rounded-full hover:bg-white/5"
+              className="text-white hover:text-red-500 transition-colors cursor-pointer p-2 rounded-full hover:bg-white/5 order-1 md:order-none"
             >
               <Menu size={24} />
             </button>
-            <Link to="/" className="text-2xl font-bold flex items-center gap-2 group">
-              <img src={logo} alt="MovieAtlas" className="h-8 transition-transform group-hover:scale-110" /> 
-              <span className="hidden sm:inline bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-300">
+            <Link to="/" className="text-xl md:text-2xl font-bold flex items-center gap-2 group md:relative md:left-0 absolute left-1/2 -translate-x-1/2 md:translate-x-0">
+              <img src={logo} alt="MovieAtlas Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 font-black tracking-tighter uppercase italic">
                 MovieAtlas
               </span>
             </Link>
@@ -50,7 +50,7 @@ const Header = ({ onMenuClick }) => {
             
             <Link 
               to="/favorites" 
-              className="relative p-2 text-white hover:text-red-500 transition-colors rounded-full hover:bg-white/5"
+              className="relative p-2 text-white hover:text-red-500 transition-colors rounded-full hover:bg-white/5 order-3 md:order-none"
               aria-label="Favorites"
             >
               <Heart size={24} />
@@ -60,12 +60,12 @@ const Header = ({ onMenuClick }) => {
                 </span>
               )}
             </Link>
-            
-            {/* Mobile search is within the sidebar or a separate toggle usually, we'll keep it simple here */}
-            <div className="md:hidden">
-               <SearchBar />
-            </div>
           </div>
+        </div>
+
+        {/* Mobile Search Row */}
+        <div className="mt-4 md:hidden">
+          <SearchBar isMobile />
         </div>
       </div>
     </header>
